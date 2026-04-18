@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經痛自我檢測表｜中西醫整合分型</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FFF9F0;
+  --text: #3D2E1F;
+  --text-light: #7A6B5D;
+  --spasm-color: #E8A87C;
+  --spasm-bg: #FFF3E8;
+  --spasm-dark: #C4793F;
+  --endo-color: #95B8D1;
+  --endo-bg: #EDF4F8;
+  --endo-dark: #4A7FA0;
+  --bloat-color: #D4A5C7;
+  --bloat-bg: #F8EDF5;
+  --bloat-dark: #9E5E8D;
+  --accent: #C96B4F;
+  --border: #E8DDD0;
+  --shadow: rgba(61, 46, 31, 0.08);
+  --radius: 16px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.8;
+  min-height: 100vh;
+}
+
+.hero {
+  background: linear-gradient(135deg, #FEF0E0 0%, #FCE4EC 50%, #F3E5F5 100%);
+  padding: 48px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 40%, rgba(233,168,124,0.12) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(212,165,199,0.12) 0%, transparent 50%);
+  animation: floatBg 20s ease-in-out infinite;
+}
+
+@keyframes floatBg {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-2%, 2%); }
+}
+
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  color: var(--text);
+  position: relative;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.hero .subtitle {
+  font-size: 0.92rem;
+  color: var(--text-light);
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.hero .badge-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.5);
+  color: var(--text-light);
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+.disclaimer {
+  margin: 24px 0;
+  padding: 16px 20px;
+  background: #FFF;
+  border-radius: var(--radius);
+  border-left: 4px solid var(--accent);
+  font-size: 0.82rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+
+.progress-wrap {
+  margin: 24px 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--cream);
+  padding: 12px 0 8px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--spasm-color), var(--endo-color), var(--bloat-color));
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.progress-label {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  text-align: right;
+  margin-top: 4px;
+}
+
+.section-block {
+  margin-bottom: 28px;
+  animation: fadeUp 0.5s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title .icon {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.section-desc {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+/* Clean question cards */
+.q-card {
+  background: #FFF;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border: 1.5px solid var(--border);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.q-card:hover {
+  border-color: #D0C4B4;
+  box-shadow: 0 3px 12px var(--shadow);
+}
+
+.q-card.checked {
+  border-color: var(--accent);
+  background: #FFFAF6;
+  box-shadow: 0 3px 16px rgba(201, 107, 79, 0.08);
+}
+
+.q-card label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.q-card input[type="checkbox"] { display: none; }
+
+.custom-check {
+  width: 22px; height: 22px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.q-card.checked .custom-check {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.q-card.checked .custom-check::after {
+  content: '✓';
+  color: #FFF;
+  font-size: 0.72rem;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+}
+
+.q-main {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.submit-wrap {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, var(--accent), #B85A42);
+  color: #FFF;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 50px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: 'Noto Sans TC', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 24px rgba(201,107,79,0.25);
+  letter-spacing: 2px;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201,107,79,0.35);
+}
+
+.btn-hint {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-top: 8px;
+}
+
+/* Results */
+.result-panel {
+  display: none;
+  margin-top: 36px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.result-panel.visible { display: block; }
+
+.result-header {
+  text-align: center;
+  padding: 32px 24px;
+  background: linear-gradient(135deg, #FEF0E0, #FCE4EC, #F3E5F5);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.result-header h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.result-header p {
+  font-size: 0.88rem;
+  color: var(--text-light);
+}
+
+.type-result {
+  background: #FFF;
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-top: none;
+}
+
+.type-score-card {
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.type-score-card.spasm { background: var(--spasm-bg); border: 1.5px solid var(--spasm-color); }
+.type-score-card.endo { background: var(--endo-bg); border: 1.5px solid var(--endo-color); }
+.type-score-card.bloat { background: var(--bloat-bg); border: 1.5px solid var(--bloat-color); }
+
+.type-score-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.type-score-name {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.type-score-pct {
+  font-size: 1.6rem;
+  font-weight: 900;
+  font-family: 'Noto Serif TC', serif;
+}
+
+.spasm .type-score-pct { color: var(--spasm-dark); }
+.endo .type-score-pct { color: var(--endo-dark); }
+.bloat .type-score-pct { color: var(--bloat-dark); }
+
+.score-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 4px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.spasm .score-bar-fill { background: var(--spasm-color); }
+.endo .score-bar-fill { background: var(--endo-color); }
+.bloat .score-bar-fill { background: var(--bloat-color); }
+
+.type-label {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.spasm .type-label { background: var(--spasm-color); color: #FFF; }
+.endo .type-label { background: var(--endo-color); color: #FFF; }
+.bloat .type-label { background: var(--bloat-color); color: #FFF; }
+
+.type-cause {
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-left: 14px;
+  border-left: 3px solid currentColor;
+  line-height: 1.7;
+}
+
+.spasm .type-cause { border-color: var(--spasm-color); }
+.endo .type-cause { border-color: var(--endo-color); }
+.bloat .type-cause { border-color: var(--bloat-color); }
+
+.advice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .advice-grid { grid-template-columns: 1fr; }
+}
+
+.advice-item {
+  background: rgba(255,255,255,0.7);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.advice-item .adv-label {
+  font-weight: 700;
+  font-size: 0.72rem;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.spasm .adv-label { color: var(--spasm-dark); }
+.endo .adv-label { color: var(--endo-dark); }
+.bloat .adv-label { color: var(--bloat-dark); }
+
+.combined-note {
+  background: linear-gradient(135deg, #FFF8F0, #FFF0F5);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-top: 4px;
+  border: 1.5px dashed var(--accent);
+}
+
+.combined-note h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+
+.combined-note p {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.btn-restart {
+  display: block;
+  margin: 28px auto 0;
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  padding: 12px 36px;
+  border-radius: 50px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: 'Noto Sans TC', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-restart:hover {
+  background: var(--accent);
+  color: #FFF;
+}
+
+.footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.72rem;
+  color: #BBA998;
+}
+
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>經痛自我檢測表</h1>
+  <p class="subtitle">結合中西醫觀點，找出你的經痛類型組合與精準改善方向</p>
+  <div class="badge-row">
+    <span class="badge">🏥 西醫病理</span>
+    <span class="badge">🌿 中醫辨證</span>
+    <span class="badge">📊 綜合分型</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="disclaimer">
+    ⚠️ 本檢測僅供自我覺察與健康教育用途，不能取代專業醫師診斷。若經痛嚴重影響生活品質，請務必就醫檢查。
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-label" id="progressLabel">已勾選 0 題</div>
+  </div>
+
+  <div id="questionArea">
+
+    <!-- A: 疼痛感受 -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="icon" style="background:var(--spasm-bg);color:var(--spasm-dark);">💢</span>
+        疼痛感受與位置
+      </div>
+      <p class="section-desc">回想一下月經來的時候，你的痛是什麼感覺？</p>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="3" data-e="0" data-b="0"><span class="custom-check"></span><span class="q-main">肚子像被擰毛巾一樣絞痛，一陣一陣的，有時痛到冒冷汗</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="3" data-b="0"><span class="custom-check"></span><span class="q-main">痛的位置很深，像被針刺或有東西在裡面撕裂的感覺</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="1" data-b="3"><span class="custom-check"></span><span class="q-main">不是劇痛，而是整個下腹悶悶脹脹的，有種往下墜的沉重感</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="2" data-b="1"><span class="custom-check"></span><span class="q-main">痛不只在肚子，還會牽連到腰、大腿內側，甚至肛門那邊</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="2" data-e="0" data-b="1"><span class="custom-check"></span><span class="q-main">用暖暖包或熱水袋敷一敷，會覺得舒服很多</span></label></div>
+    </div>
+
+    <!-- B: 時間週期 -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="icon" style="background:var(--endo-bg);color:var(--endo-dark);">⏱</span>
+        疼痛時間與週期特徵
+      </div>
+      <p class="section-desc">想一下你通常什麼時候開始痛、痛多久？</p>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="3" data-e="0" data-b="0"><span class="custom-check"></span><span class="q-main">月經快來或剛來的前兩天最痛，血量出來之後就好多了</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="3" data-b="0"><span class="custom-check"></span><span class="q-main">從月經來之前就開始痛，整個經期都在痛，甚至結束了還隱隱痛</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="2" data-b="0"><span class="custom-check"></span><span class="q-main">以前經痛還好，但這幾年越來越嚴重，有越來越痛的趨勢</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="0" data-b="3"><span class="custom-check"></span><span class="q-main">經前就開始脹脹的、腰很痠，那種「悶悶的不舒服」比劇痛更明顯</span></label></div>
+    </div>
+
+    <!-- C: 經血型態 -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="icon" style="background:var(--bloat-bg);color:var(--bloat-dark);">🩸</span>
+        經血型態觀察
+      </div>
+      <p class="section-desc">觀察一下你的月經顏色、量和排出的樣子</p>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="2" data-e="0" data-b="1"><span class="custom-check"></span><span class="q-main">月經量偏多、顏色鮮紅，會排出一些小血塊</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="3" data-b="0"><span class="custom-check"></span><span class="q-main">血量很大，而且有暗黑色的大血塊，經期常常拖超過 7 天</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="0" data-b="3"><span class="custom-check"></span><span class="q-main">月經顏色偏暗、量不多但滴滴答答排不乾淨</span></label></div>
+    </div>
+
+    <!-- D: 伴隨症狀 -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="icon" style="background:#FFF0E0;color:#C97B3F;">🔗</span>
+        伴隨症狀
+      </div>
+      <p class="section-desc">除了肚子痛，還有沒有這些狀況？</p>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="2" data-e="1" data-b="0"><span class="custom-check"></span><span class="q-main">經期來的時候容易拉肚子、想吐，甚至會冒冷汗</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="3" data-b="0"><span class="custom-check"></span><span class="q-main">親密行為時會痛，尤其是比較深入的時候會有壓迫感</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="2" data-b="1"><span class="custom-check"></span><span class="q-main">上廁所大號的時候更痛，或覺得肛門那邊脹脹的很不舒服</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="0" data-b="3"><span class="custom-check"></span><span class="q-main">經期前後特別容易水腫，整個人腫腫的、提不起勁</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="1" data-e="0" data-b="2"><span class="custom-check"></span><span class="q-main">手腳冰冷、特別怕冷，月經來的時候更明顯</span></label></div>
+    </div>
+
+    <!-- E: 體質生活 -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="icon" style="background:#E8F5E9;color:#558B6E;">🧬</span>
+        體質與生活型態
+      </div>
+      <p class="section-desc">看看你的生活習慣有沒有中獎</p>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="2" data-e="0" data-b="1"><span class="custom-check"></span><span class="q-main">平常很愛吃炸的、零食、外食多，油膩的東西吃蠻多的</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="2" data-b="1"><span class="custom-check"></span><span class="q-main">常用塑膠容器裝熱食、愛用香氛產品，或常接觸含香精的東西</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="0" data-e="0" data-b="3"><span class="custom-check"></span><span class="q-main">工作久坐、很少運動，一整天幾乎都不太走動</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="1" data-e="1" data-b="1"><span class="custom-check"></span><span class="q-main">壓力大、常常睡不好，情緒容易起伏</span></label></div>
+
+      <div class="q-card" onclick="toggle(this)"><label><input type="checkbox" data-s="1" data-e="0" data-b="2"><span class="custom-check"></span><span class="q-main">經期前後還是會喝冰飲、吃冰，戒不掉</span></label></div>
+    </div>
+
+  </div>
+
+  <div class="submit-wrap">
+    <button class="btn-submit" onclick="showResult()">查看我的分型結果</button>
+    <p class="btn-hint">勾選完畢即可點擊查看</p>
+  </div>
+
+  <div class="result-panel" id="resultPanel">
+    <div class="result-header">
+      <h2>你的經痛類型分析</h2>
+      <p id="resultSubtitle"></p>
+    </div>
+    <div class="type-result" id="typeResult"></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  本檢測由 朵朵健康療聊室 整理製作，結合中西醫觀點，僅供健康教育參考<br>
+  © 2026 @dodo_health_talk
+</div>
+
+<script>
+function toggle(card) {
+  const cb = card.querySelector('input[type="checkbox"]');
+  cb.checked = !cb.checked;
+  card.classList.toggle('checked', cb.checked);
+  updateProgress();
+}
+
+function updateProgress() {
+  const all = document.querySelectorAll('.q-card input[type="checkbox"]');
+  const checked = document.querySelectorAll('.q-card input[type="checkbox"]:checked');
+  const pct = Math.round((checked.length / all.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `已勾選 ${checked.length} / ${all.length} 題`;
+}
+
+function showResult() {
+  const checked = document.querySelectorAll('.q-card input[type="checkbox"]:checked');
+  if (checked.length === 0) {
+    alert('請至少勾選一個符合你的選項！');
+    return;
+  }
+
+  let spasm = 0, endo = 0, bloat = 0;
+  checked.forEach(cb => {
+    spasm += parseInt(cb.dataset.s || 0);
+    endo += parseInt(cb.dataset.e || 0);
+    bloat += parseInt(cb.dataset.b || 0);
+  });
+
+  const total = spasm + endo + bloat || 1;
+  const sPct = Math.round(spasm / total * 100);
+  const ePct = Math.round(endo / total * 100);
+  const bPct = Math.round(bloat / total * 100);
+
+  const scores = [
+    { key: 'spasm', name: '痙攣抽痛型', pct: sPct, raw: spasm },
+    { key: 'endo', name: '深層異位疼痛型', pct: ePct, raw: endo },
+    { key: 'bloat', name: '痠脹沉重型', pct: bPct, raw: bloat }
+  ].sort((a, b) => b.raw - a.raw);
+
+  const dominant = scores.filter(s => s.pct >= 25);
+  const isMixed = dominant.length >= 2;
+
+  let subtitle = '';
+  if (isMixed) {
+    subtitle = `你屬於「綜合型」經痛，以 ${scores[0].name} 為主，合併 ${scores[1].name} 特徵`;
+    if (dominant.length === 3) subtitle = '你同時具有三種類型的特徵，屬於複合型經痛';
+  } else {
+    subtitle = `你以「${scores[0].name}」為主要類型`;
+  }
+
+  document.getElementById('resultSubtitle').textContent = subtitle;
+
+  const typeData = {
+    spasm: {
+      cause: '你的身體在經期會製造太多「前列腺素」，這個東西會讓子宮肌肉猛力收縮，就像抽筋一樣一陣一陣地痛。它還會跑去刺激腸胃，所以你才會拉肚子、想吐。吃太多炸物和精製油會讓身體更容易發炎，痛感更強烈。<br><br>從經絡的角度看，屬於「氣滯血瘀」或「寒凝」的狀態——氣血不通暢所以痛，暖起來、通了就會舒服很多。',
+      advice: [
+        { icon: '🧪', label: '營養素調理', text: '<strong>鎂</strong>：放鬆子宮平滑肌、減少抽痛<br><strong>鈣</strong>：穩定肌肉不亂收縮<br><strong>Omega-3（魚油）</strong>：降低發炎，讓身體少製造「痛的原料」<br><strong>EGCG 兒茶素</strong>：抑制發炎路徑，幫身體踩煞車<br>同時少吃炸物和精製油，從源頭減少發炎' },
+        { icon: '🪮', label: '經絡體刷保養', text: '用體刷沿著<strong>小腿內側脾經</strong>（三陰交一帶）由下往上刷，幫助氣血流通。經前也可以搭配熱敷，刷<strong>下腹部任脈（關元穴）</strong>周圍，暖宮又疏通' },
+        { icon: '♨️', label: '暖宮保養', text: '經前就開始用暖暖包敷肚子，促進子宮血流。平時保暖、別讓下腹受寒，寒氣是痙攣型最大的敵人' },
+        { icon: '🚫', label: '避開地雷', text: '經期前後少喝冰的、少碰咖啡因，這兩個都會讓血管收縮、痛感加倍。炸物和甜食也盡量忍一忍' }
+      ]
+    },
+    endo: {
+      cause: '這類型的痛可能跟子宮內部的「結構問題」有關——像子宮內膜異位症或肌腺症。簡單說就是子宮內膜跑到不該去的地方生長，每次月經來它也跟著出血，造成沾黏和慢性發炎。所以痛感很深、拖很久，而且年年加重。<br><br>從經絡的角度看，屬於「瘀血」卡在身體深處很久了，需要更積極地處理循環和發炎問題。',
+      advice: [
+        { icon: '⚡', label: '先確認身體狀況', text: '這類型建議先去做個超音波確認一下，了解自己的身體狀況再來調理，方向會更精準。痛感年年加重、經期拖很長，都值得去看一下' },
+        { icon: '🧪', label: '營養素調理', text: '<strong>Omega-3（魚油）</strong>：降低慢性發炎<br><strong>EGCG 兒茶素</strong>：抑制發炎訊號，減少組織沾黏惡化<br><strong>靈芝多醣體＋三萜類</strong>：調節免疫、支持肝臟代謝多餘雌激素<br><strong>I3C（十字花科蔬菜）</strong>：花椰菜、高麗菜，幫肝臟走對的雌激素代謝路徑<br>也可以補充<strong>維生素 D、NAC、硒</strong>等抗氧化營養素' },
+        { icon: '🪮', label: '經絡體刷保養', text: '用體刷沿<strong>大腿內側肝經</strong>由膝蓋往上刷，疏通肝經幫助雌激素代謝。另外可以刷<strong>下腹兩側（子宮穴區域）</strong>和<strong>小腿內側血海穴</strong>附近，促進骨盆腔的血液循環' },
+        { icon: '🛡', label: '環境清理', text: '少用塑膠容器裝熱食、減少香精與人工香氛產品。這些環境荷爾蒙會模仿雌激素，讓身體的負擔更重' }
+      ]
+    },
+    bloat: {
+      cause: '你的痛主要來自骨盆腔的血液循環「卡住了」——血流回不來，造成下腹充血腫脹，經血也排不乾淨。久坐不動、缺乏運動是最大的元兇。荷爾蒙波動還會讓身體留住水分，所以經期前後特別容易腫脹、疲倦。<br><br>從經絡的角度看，屬於「脾虛濕阻」，身體太濕、動能不夠，氣血推不動所以悶脹。',
+      advice: [
+        { icon: '🏃‍♀️', label: '動起來最有效', text: '這個類型最需要的就是「動」！平常養成快走、瑜伽、游泳的習慣，幫骨盆腔把血液循環帶起來。不用激烈運動，規律就好' },
+        { icon: '🧪', label: '營養素調理', text: '<strong>鎂</strong>：放鬆肌肉、促進循環<br><strong>鐵質</strong>：經血排不乾淨容易缺鐵，補起來比較不會累<br><strong>維生素 B 群</strong>：幫助能量代謝、減少經前水腫<br><strong>靈芝多醣體</strong>：調節免疫、提升身體的修復能力<br>經前與經期少喝冰的，可以喝點溫薑茶暖身' },
+        { icon: '🪮', label: '經絡體刷保養', text: '重點刷<strong>後腰命門穴區域</strong>，溫陽補腎。再刷<strong>小腹氣海穴周圍</strong>和<strong>大腿外側膽經</strong>，由上往下帶動氣血下行。搭配泡澡或足浴效果加倍' },
+        { icon: '♨️', label: '日常暖身', text: '熱敷後腰＋下腹是基本款。避免久坐超過一小時，起來走動或做幾個深蹲。經期來的時候泡個熱水腳，從腳暖回來' }
+      ]
+    }
+  };
+
+  let html = '';
+
+  scores.forEach((s, i) => {
+    if (s.raw === 0) return;
+    const data = typeData[s.key];
+
+    html += `
+      <div class="type-score-card ${s.key}" style="animation: fadeUp 0.5s ${i * 0.15}s ease both;">
+        <div class="type-score-header">
+          <span class="type-score-name">${s.name}</span>
+          <span class="type-score-pct">${s.pct}%</span>
+        </div>
+        <div class="score-bar-bg"><div class="score-bar-fill" style="width:0%" data-target="${s.pct}"></div></div>
+        <span class="type-label">${i === 0 ? '主要類型' : '次要特徵'}</span>
+        <div class="type-cause">${data.cause}</div>
+        <div class="advice-grid">
+          ${data.advice.map(a => `
+            <div class="advice-item">
+              <div class="adv-label">${a.icon} ${a.label}</div>
+              ${a.text}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  });
+
+  if (isMixed) {
+    html += `
+      <div class="combined-note">
+        <h3>💡 綜合型經痛怎麼辦？</h3>
+        <p>
+          現代女性大多不是單一類型，而是混合型的經痛。別擔心，分階段處理就好：<br><br>
+          ① <strong>月經來的時候（急性期）</strong>：先對付最痛的那個類型——止痛、熱敷、休息<br>
+          ② <strong>月經結束後（調理期）</strong>：用營養素補充＋經絡體刷，慢慢調整體質<br>
+          ③ <strong>下次月經前一週（預防期）</strong>：開始忌口冰冷、加強保暖、早點睡<br><br>
+          <strong>鎂</strong>是三種類型都需要的關鍵營養素：幫痙攣型放鬆肌肉、幫異位型調節發炎、幫痠脹型促進循環。可以說是經痛女生的必備補給品！
+        </p>
+      </div>
+    `;
+  }
+
+  html += '<button class="btn-restart" onclick="restart()">重新檢測</button>';
+
+  document.getElementById('typeResult').innerHTML = html;
+  document.getElementById('resultPanel').classList.add('visible');
+
+  setTimeout(() => {
+    document.querySelectorAll('.score-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.target + '%';
+    });
+  }, 300);
+
+  document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function restart() {
+  document.querySelectorAll('.q-card').forEach(c => {
+    c.classList.remove('checked');
+    c.querySelector('input').checked = false;
+  });
+  document.getElementById('resultPanel').classList.remove('visible');
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+updateProgress();
+</script>
+</body>
+</html>
